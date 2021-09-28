@@ -30,7 +30,7 @@
           <li><a href="services.html">Services</a></li>
           <li><a href="portfolio.html">Portfolio</a></li>
           <li><a href="pricing.html">Pricing</a></li>
-          <li class="active"><router-link to="/">Blog</router-link></li>
+          <li><router-link to="/">Blog</router-link></li>
           <li><a href="contact.html">Contact</a></li>
 
         </ul>

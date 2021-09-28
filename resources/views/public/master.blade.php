@@ -56,12 +56,12 @@
   <script src="{{asset('/')}}assets/public/assets/vendor/venobox/venobox.min.js"></script>
   <script src="{{asset('/')}}assets/public/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
   <script src="{{asset('/')}}assets/public/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-  {{-- <script src="{{asset('/')}}assets/public/assets/vendor/aos/aos.js"></script> --}}
-  <script src="{{mix('js/app.js')}}"></script>
+  <script src="{{asset('/')}}assets/public/assets/vendor/aos/aos.js"></script>
+
 
   <!-- Template Main JS File -->
   <script src="{{asset('/')}}assets/public/assets/js/main.js"></script>
-
+  <script src="{{mix('js/app.js')}}"></script>
 </body>
 
 </html>
