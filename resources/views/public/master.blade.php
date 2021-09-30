@@ -18,6 +18,7 @@
 
   <!-- Vendor CSS Files -->
   <link href="{{asset('/')}}assets/public/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{mix('css/app.css')}}" rel="stylesheet">
   <link href="{{asset('/')}}assets/public/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
   <link href="{{asset('/')}}assets/public/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="{{asset('/')}}assets/public/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -28,7 +29,7 @@
 
   <!-- Template Main CSS File -->
   <link href="{{asset('/')}}assets/public/assets/css/style.css" rel="stylesheet">
-  <link href="{{mix('css/app.css')}}" rel="stylesheet">
+
 
   <!-- =======================================================
   * Template Name: Company - v2.1.0

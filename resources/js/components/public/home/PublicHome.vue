@@ -46,7 +46,7 @@
                   {{post.short_desc}}
                 </p>
                 <div class="read-more">
-                  <router-link to="/blog">Read More</router-link>
+                  <router-link :to="`blog/${post.id}`">Read More</router-link>
                 </div>
               </div>
 

@@ -7,7 +7,7 @@ export const routes = [
         component: PublicHomeComponent
     },
     {
-        path: '/blog',
+        path: '/blog/:id',
         component: SingleBlogComponent
     },
     // { path: '/bar', component: Bar }

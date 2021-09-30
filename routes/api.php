@@ -21,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/all-blogs',[DataController::class,'allBlogs']);
+Route::get('/single-blog/{id}',[DataController::class,'singleBlog']);
+Route::get('/all-categories',[DataController::class,'allCategories']);
+Route::get('/all-tags',[DataController::class,'allTags']);

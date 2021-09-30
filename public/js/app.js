@@ -2277,69 +2277,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "SideBar.vue"
+  name: "SideBar.vue",
+  mounted: function mounted() {
+    this.$store.dispatch('getAllCategories');
+    this.$store.dispatch('getAllBlogs');
+    this.$store.dispatch('getAllTags');
+  },
+  computed: {
+    cats: function cats() {
+      return this.$store.getters.getCategories;
+    },
+    posts: function posts() {
+      return this.$store.getters.getBlogs;
+    },
+    tags: function tags() {
+      return this.$store.getters.getTags;
+    }
+  }
 });
 
 /***/ }),
@@ -2557,46 +2512,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SingleBlogComponent.vue",
   components: {
     SideBarComponent: _includes_SideBar_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mounted: function mounted() {
+    console.log('test');
+    this.$store.dispatch('getSingleBlog', this.$route.params.id);
+  },
+  computed: {
+    singleBlog: function singleBlog() {
+      return this.$store.getters.getBlog;
+    }
   }
 });
 
@@ -38717,9 +38646,11 @@ var render = function() {
                       "div",
                       { staticClass: "read-more" },
                       [
-                        _c("router-link", { attrs: { to: "/blog" } }, [
-                          _vm._v("Read More")
-                        ])
+                        _c(
+                          "router-link",
+                          { attrs: { to: "blog/" + post.id } },
+                          [_vm._v("Read More")]
+                        )
                       ],
                       1
                     )
@@ -38790,187 +38721,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "col-lg-4" }, [
+    _c("div", { staticClass: "sidebar" }, [
+      _c("h3", { staticClass: "sidebar-title" }, [_vm._v("Search")]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("h3", { staticClass: "sidebar-title" }, [_vm._v("Categories")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "sidebar-item categories" }, [
+        _c(
+          "ul",
+          _vm._l(_vm.cats, function(cat) {
+            return _c("li", [
+              _c("a", { attrs: { href: "#" } }, [
+                _vm._v(_vm._s(cat.cat_name) + " "),
+                _c("span", [_vm._v("(25)")])
+              ])
+            ])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("h3", { staticClass: "sidebar-title" }, [_vm._v("Recent Posts")]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "sidebar-item recent-posts" },
+        _vm._l(_vm.posts, function(post) {
+          return _c("div", { staticClass: "post-item clearfix" }, [
+            _c("img", { attrs: { src: "" + post.image, alt: "" } }),
+            _vm._v(" "),
+            _c("h4", [
+              _c("a", { attrs: { href: "blog-single.html" } }, [
+                _vm._v(_vm._s(post.title))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("time", { attrs: { datetime: "2020-01-01" } }, [
+              _vm._v(_vm._s(post.created_at))
+            ])
+          ])
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c("h3", { staticClass: "sidebar-title" }, [_vm._v("Tags")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "sidebar-item tags" }, [
+        _c(
+          "ul",
+          _vm._l(_vm.tags, function(tag) {
+            return _c("li", [
+              _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(tag.tag_name))])
+            ])
+          }),
+          0
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-4" }, [
-      _c("div", { staticClass: "sidebar" }, [
-        _c("h3", { staticClass: "sidebar-title" }, [_vm._v("Search")]),
+    return _c("div", { staticClass: "sidebar-item search-form" }, [
+      _c("form", { attrs: { action: "" } }, [
+        _c("input", { attrs: { type: "text" } }),
         _vm._v(" "),
-        _c("div", { staticClass: "sidebar-item search-form" }, [
-          _c("form", { attrs: { action: "" } }, [
-            _c("input", { attrs: { type: "text" } }),
-            _vm._v(" "),
-            _c("button", { attrs: { type: "submit" } }, [
-              _c("i", { staticClass: "icofont-search" })
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("h3", { staticClass: "sidebar-title" }, [_vm._v("Categories")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "sidebar-item categories" }, [
-          _c("ul", [
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("General "),
-                _c("span", [_vm._v("(25)")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("Lifestyle "),
-                _c("span", [_vm._v("(12)")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("Travel "),
-                _c("span", [_vm._v("(5)")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("Design "),
-                _c("span", [_vm._v("(22)")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("Creative "),
-                _c("span", [_vm._v("(8)")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("Educaion "),
-                _c("span", [_vm._v("(14)")])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("h3", { staticClass: "sidebar-title" }, [_vm._v("Recent Posts")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "sidebar-item recent-posts" }, [
-          _c("div", { staticClass: "post-item clearfix" }, [
-            _c("img", {
-              attrs: { src: "assets/img/blog-recent-posts-1.jpg", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("h4", [
-              _c("a", { attrs: { href: "blog-single.html" } }, [
-                _vm._v("Nihil blanditiis at in nihil autem")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("time", { attrs: { datetime: "2020-01-01" } }, [
-              _vm._v("Jan 1, 2020")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "post-item clearfix" }, [
-            _c("img", {
-              attrs: { src: "assets/img/blog-recent-posts-2.jpg", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("h4", [
-              _c("a", { attrs: { href: "blog-single.html" } }, [
-                _vm._v("Quidem autem et impedit")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("time", { attrs: { datetime: "2020-01-01" } }, [
-              _vm._v("Jan 1, 2020")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "post-item clearfix" }, [
-            _c("img", {
-              attrs: { src: "assets/img/blog-recent-posts-3.jpg", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("h4", [
-              _c("a", { attrs: { href: "blog-single.html" } }, [
-                _vm._v("Id quia et et ut maxime similique occaecati ut")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("time", { attrs: { datetime: "2020-01-01" } }, [
-              _vm._v("Jan 1, 2020")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "post-item clearfix" }, [
-            _c("img", {
-              attrs: { src: "assets/img/blog-recent-posts-4.jpg", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("h4", [
-              _c("a", { attrs: { href: "blog-single.html" } }, [
-                _vm._v("Laborum corporis quo dara net para")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("time", { attrs: { datetime: "2020-01-01" } }, [
-              _vm._v("Jan 1, 2020")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "post-item clearfix" }, [
-            _c("img", {
-              attrs: { src: "assets/img/blog-recent-posts-5.jpg", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("h4", [
-              _c("a", { attrs: { href: "blog-single.html" } }, [
-                _vm._v("Et dolores corrupti quae illo quod dolor")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("time", { attrs: { datetime: "2020-01-01" } }, [
-              _vm._v("Jan 1, 2020")
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("h3", { staticClass: "sidebar-title" }, [_vm._v("Tags")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "sidebar-item tags" }, [
-          _c("ul", [
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("App")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("IT")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Business")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Business")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Mac")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Design")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Office")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Creative")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Studio")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Smart")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Tips")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Marketing")])])
-          ])
+        _c("button", { attrs: { type: "submit" } }, [
+          _c("i", { staticClass: "icofont-search" })
         ])
       ])
     ])
@@ -39005,7 +38828,114 @@ var render = function() {
         _c(
           "div",
           { staticClass: "row" },
-          [_vm._m(1), _vm._v(" "), _c("SideBarComponent")],
+          [
+            _c("div", { staticClass: "col-lg-8 entries" }, [
+              _c("article", { staticClass: "entry entry-single" }, [
+                _c("div", { staticClass: "entry-img" }, [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "" + _vm.singleBlog.image, alt: "" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("h2", { staticClass: "entry-title" }, [
+                  _c("a", { attrs: { href: "blog-single.html" } }, [
+                    _vm._v(_vm._s(_vm.singleBlog.title))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "entry-meta" }, [
+                  _c("ul", [
+                    _c("li", { staticClass: "d-flex align-items-center" }, [
+                      _c("i", { staticClass: "icofont-user" }),
+                      _vm._v(" "),
+                      _c("a", { attrs: { href: "blog-single.html" } }, [
+                        _vm._v(_vm._s(_vm.singleBlog.author.auth_name))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("li", { staticClass: "d-flex align-items-center" }, [
+                      _c("i", { staticClass: "icofont-wall-clock" }),
+                      _vm._v(" "),
+                      _c("a", { attrs: { href: "blog-single.html" } }, [
+                        _c("time", { attrs: { datetime: "2020-01-01" } }, [
+                          _vm._v(_vm._s(_vm.singleBlog.created_at))
+                        ])
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "entry-content" }, [
+                  _c("p", [
+                    _vm._v(
+                      "\n                  " +
+                        _vm._s(_vm.singleBlog.short_desc) +
+                        "\n              "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", {
+                    domProps: { innerHTML: _vm._s(_vm.singleBlog.long_desc) }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "entry-footer clearfix" }, [
+                  _c("div", { staticClass: "float-left" }, [
+                    _c("i", { staticClass: "icofont-folder" }),
+                    _vm._v(" "),
+                    _c("ul", { staticClass: "cats" }, [
+                      _c("li", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(_vm._s(_vm.singleBlog.category.cat_name))
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("i", { staticClass: "icofont-tags" }),
+                    _vm._v(" "),
+                    _c(
+                      "ul",
+                      { staticClass: "tags" },
+                      _vm._l(_vm.singleBlog.blog_tag, function(tag) {
+                        return _c("li", [
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v(_vm._s(tag.tag.tag_name))
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "blog-author clearfix" }, [
+                _c("img", {
+                  staticClass: "rounded-circle float-left",
+                  attrs: { src: "" + _vm.singleBlog.author.image, alt: "" }
+                }),
+                _vm._v(" "),
+                _c("h4", [_vm._v(_vm._s(_vm.singleBlog.author.auth_name))]),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n             " +
+                      _vm._s(_vm.singleBlog.author.auth_desc) +
+                      "\n            "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(3)
+            ]),
+            _vm._v(" "),
+            _c("SideBarComponent")
+          ],
           1
         )
       ])
@@ -39047,439 +38977,288 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-8 entries" }, [
-      _c("article", { staticClass: "entry entry-single" }, [
-        _c("div", { staticClass: "entry-img" }, [
-          _c("img", {
-            staticClass: "img-fluid",
-            attrs: { src: "assets/img/blog-1.jpg", alt: "" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("h2", { staticClass: "entry-title" }, [
-          _c("a", { attrs: { href: "blog-single.html" } }, [
-            _vm._v(
-              "Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia reiciendis"
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "entry-meta" }, [
-          _c("ul", [
-            _c("li", { staticClass: "d-flex align-items-center" }, [
-              _c("i", { staticClass: "icofont-user" }),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "blog-single.html" } }, [
-                _vm._v("John Doe")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "d-flex align-items-center" }, [
-              _c("i", { staticClass: "icofont-wall-clock" }),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "blog-single.html" } }, [
-                _c("time", { attrs: { datetime: "2020-01-01" } }, [
-                  _vm._v("Jan 1, 2020")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "d-flex align-items-center" }, [
-              _c("i", { staticClass: "icofont-comment" }),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "blog-single.html" } }, [
-                _vm._v("12 Comments")
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "entry-content" }, [
-          _c("p", [
-            _vm._v(
-              "\n                Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.\n                Et eveniet enim. Qui velit est ea dolorem doloremque deleniti aperiam unde soluta. Est cum et quod quos aut ut et sit sunt. Voluptate porro consequatur assumenda perferendis dolore.\n              "
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "\n                Sit repellat hic cupiditate hic ut nemo. Quis nihil sunt non reiciendis. Sequi in accusamus harum vel aspernatur. Excepturi numquam nihil cumque odio. Et voluptate cupiditate.\n              "
-            )
-          ]),
-          _vm._v(" "),
-          _c("blockquote", [
-            _c("i", { staticClass: "icofont-quote-left quote-left" }),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n                  Et vero doloremque tempore voluptatem ratione vel aut. Deleniti sunt animi aut. Aut eos aliquam doloribus minus autem quos.\n                "
-              )
-            ]),
-            _vm._v(" "),
-            _c("i", { staticClass: "las la-quote-right quote-right" }),
-            _vm._v(" "),
-            _c("i", { staticClass: "icofont-quote-right quote-right" })
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "\n                Sed quo laboriosam qui architecto. Occaecati repellendus omnis dicta inventore tempore provident voluptas mollitia aliquid. Id repellendus quia. Asperiores nihil magni dicta est suscipit perspiciatis. Voluptate ex rerum assumenda dolores nihil quaerat.\n                Dolor porro tempora et quibusdam voluptas. Beatae aut at ad qui tempore corrupti velit quisquam rerum. Omnis dolorum exercitationem harum qui qui blanditiis neque.\n                Iusto autem itaque. Repudiandae hic quae aspernatur ea neque qui. Architecto voluptatem magni. Vel magnam quod et tempora deleniti error rerum nihil tempora.\n              "
-            )
-          ]),
-          _vm._v(" "),
-          _c("h3", [_vm._v("Et quae iure vel ut odit alias.")]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "\n                Officiis animi maxime nulla quo et harum eum quis a. Sit hic in qui quos fugit ut rerum atque. Optio provident dolores atque voluptatem rem excepturi molestiae qui. Voluptatem laborum omnis ullam quibusdam perspiciatis nulla nostrum. Voluptatum est libero eum nesciunt aliquid qui.\n                Quia et suscipit non sequi. Maxime sed odit. Beatae nesciunt nesciunt accusamus quia aut ratione aspernatur dolor. Sint harum eveniet dicta exercitationem minima. Exercitationem omnis asperiores natus aperiam dolor consequatur id ex sed. Quibusdam rerum dolores sint consequatur quidem ea.\n                Beatae minima sunt libero soluta sapiente in rem assumenda. Et qui odit voluptatem. Cum quibusdam voluptatem voluptatem accusamus mollitia aut atque aut.\n              "
-            )
-          ]),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "img-fluid",
-            attrs: { src: "assets/img/blog-5.jpg", alt: "" }
-          }),
-          _vm._v(" "),
-          _c("h3", [
-            _vm._v("Ut repellat blanditiis est dolore sunt dolorum quae.")
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "\n                Rerum ea est assumenda pariatur quasi et quam. Facilis nam porro amet nostrum. In assumenda quia quae a id praesentium. Quos deleniti libero sed occaecati aut porro autem. Consectetur sed excepturi sint non placeat quia repellat incidunt labore. Autem facilis hic dolorum dolores vel.\n                Consectetur quasi id et optio praesentium aut asperiores eaque aut. Explicabo omnis quibusdam esse. Ex libero illum iusto totam et ut aut blanditiis. Veritatis numquam ut illum ut a quam vitae.\n              "
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "\n                Alias quia non aliquid. Eos et ea velit. Voluptatem maxime enim omnis ipsa voluptas incidunt. Nulla sit eaque mollitia nisi asperiores est veniam.\n              "
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "entry-footer clearfix" }, [
-          _c("div", { staticClass: "float-left" }, [
-            _c("i", { staticClass: "icofont-folder" }),
-            _vm._v(" "),
-            _c("ul", { staticClass: "cats" }, [
-              _c("li", [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Business")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("i", { staticClass: "icofont-tags" }),
-            _vm._v(" "),
-            _c("ul", { staticClass: "tags" }, [
-              _c("li", [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Creative")])
-              ]),
-              _vm._v(" "),
-              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Tips")])]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Marketing")])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "float-right share" }, [
-            _c("a", { attrs: { href: "", title: "Share on Twitter" } }, [
-              _c("i", { staticClass: "icofont-twitter" })
-            ]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "", title: "Share on Facebook" } }, [
-              _c("i", { staticClass: "icofont-facebook" })
-            ]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "", title: "Share on Instagram" } }, [
-              _c("i", { staticClass: "icofont-instagram" })
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "float-right share" }, [
+      _c("a", { attrs: { href: "", title: "Share on Twitter" } }, [
+        _c("i", { staticClass: "icofont-twitter" })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "blog-author clearfix" }, [
-        _c("img", {
-          staticClass: "rounded-circle float-left",
-          attrs: { src: "assets/img/blog-author.jpg", alt: "" }
-        }),
-        _vm._v(" "),
-        _c("h4", [_vm._v("Jane Smith")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "social-links" }, [
-          _c("a", { attrs: { href: "https://twitters.com/#" } }, [
-            _c("i", { staticClass: "icofont-twitter" })
+      _c("a", { attrs: { href: "", title: "Share on Facebook" } }, [
+        _c("i", { staticClass: "icofont-facebook" })
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "", title: "Share on Instagram" } }, [
+        _c("i", { staticClass: "icofont-instagram" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "social-links" }, [
+      _c("a", { attrs: { href: "https://twitters.com/#" } }, [
+        _c("i", { staticClass: "icofont-twitter" })
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "https://facebook.com/#" } }, [
+        _c("i", { staticClass: "icofont-facebook" })
+      ]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "https://instagram.com/#" } }, [
+        _c("i", { staticClass: "icofont-instagram" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "blog-comments" }, [
+      _c("h4", { staticClass: "comments-count" }, [_vm._v("8 Comments")]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "comment clearfix", attrs: { id: "comment-1" } },
+        [
+          _c("img", {
+            staticClass: "comment-img  float-left",
+            attrs: { src: "assets/img/comments-1.jpg", alt: "" }
+          }),
+          _vm._v(" "),
+          _c("h5", [
+            _c("a", { attrs: { href: "" } }, [_vm._v("Georgia Reader")]),
+            _vm._v(" "),
+            _c("a", { staticClass: "reply", attrs: { href: "#" } }, [
+              _c("i", { staticClass: "icofont-reply" }),
+              _vm._v(" Reply")
+            ])
           ]),
           _vm._v(" "),
-          _c("a", { attrs: { href: "https://facebook.com/#" } }, [
-            _c("i", { staticClass: "icofont-facebook" })
+          _c("time", { attrs: { datetime: "2020-01-01" } }, [
+            _vm._v("01 Jan, 2020")
           ]),
           _vm._v(" "),
-          _c("a", { attrs: { href: "https://instagram.com/#" } }, [
-            _c("i", { staticClass: "icofont-instagram" })
+          _c("p", [
+            _vm._v(
+              "\n                Et rerum totam nisi. Molestiae vel quam dolorum vel voluptatem et et. Est ad aut sapiente quis molestiae est qui cum soluta.\n                Vero aut rerum vel. Rerum quos laboriosam placeat ex qui. Sint qui facilis et.\n              "
+            )
           ])
-        ]),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "comment clearfix", attrs: { id: "comment-2" } },
+        [
+          _c("img", {
+            staticClass: "comment-img  float-left",
+            attrs: { src: "assets/img/comments-2.jpg", alt: "" }
+          }),
+          _vm._v(" "),
+          _c("h5", [
+            _c("a", { attrs: { href: "" } }, [_vm._v("Aron Alvarado")]),
+            _vm._v(" "),
+            _c("a", { staticClass: "reply", attrs: { href: "#" } }, [
+              _c("i", { staticClass: "icofont-reply" }),
+              _vm._v(" Reply")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("time", { attrs: { datetime: "2020-01-01" } }, [
+            _vm._v("01 Jan, 2020")
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "\n                Ipsam tempora sequi voluptatem quis sapiente non. Autem itaque eveniet saepe. Officiis illo ut beatae.\n              "
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "comment comment-reply clearfix",
+              attrs: { id: "comment-reply-1" }
+            },
+            [
+              _c("img", {
+                staticClass: "comment-img  float-left",
+                attrs: { src: "assets/img/comments-3.jpg", alt: "" }
+              }),
+              _vm._v(" "),
+              _c("h5", [
+                _c("a", { attrs: { href: "" } }, [_vm._v("Lynda Small")]),
+                _vm._v(" "),
+                _c("a", { staticClass: "reply", attrs: { href: "#" } }, [
+                  _c("i", { staticClass: "icofont-reply" }),
+                  _vm._v(" Reply")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("time", { attrs: { datetime: "2020-01-01" } }, [
+                _vm._v("01 Jan, 2020")
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "\n                  Enim ipsa eum fugiat fuga repellat. Commodi quo quo dicta. Est ullam aspernatur ut vitae quia mollitia id non. Qui ad quas nostrum rerum sed necessitatibus aut est. Eum officiis sed repellat maxime vero nisi natus. Amet nesciunt nesciunt qui illum omnis est et dolor recusandae.\n\n                  Recusandae sit ad aut impedit et. Ipsa labore dolor impedit et natus in porro aut. Magnam qui cum. Illo similique occaecati nihil modi eligendi. Pariatur distinctio labore omnis incidunt et illum. Expedita et dignissimos distinctio laborum minima fugiat.\n\n                  Libero corporis qui. Nam illo odio beatae enim ducimus. Harum reiciendis error dolorum non autem quisquam vero rerum neque.\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "comment comment-reply clearfix",
+                  attrs: { id: "comment-reply-2" }
+                },
+                [
+                  _c("img", {
+                    staticClass: "comment-img  float-left",
+                    attrs: { src: "assets/img/comments-4.jpg", alt: "" }
+                  }),
+                  _vm._v(" "),
+                  _c("h5", [
+                    _c("a", { attrs: { href: "" } }, [_vm._v("Sianna Ramsay")]),
+                    _vm._v(" "),
+                    _c("a", { staticClass: "reply", attrs: { href: "#" } }, [
+                      _c("i", { staticClass: "icofont-reply" }),
+                      _vm._v(" Reply")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("time", { attrs: { datetime: "2020-01-01" } }, [
+                    _vm._v("01 Jan, 2020")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "\n                    Et dignissimos impedit nulla et quo distinctio ex nemo. Omnis quia dolores cupiditate et. Ut unde qui eligendi sapiente omnis ullam. Placeat porro est commodi est officiis voluptas repellat quisquam possimus. Perferendis id consectetur necessitatibus.\n                  "
+                    )
+                  ])
+                ]
+              )
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "comment clearfix", attrs: { id: "comment-3" } },
+        [
+          _c("img", {
+            staticClass: "comment-img  float-left",
+            attrs: { src: "assets/img/comments-5.jpg", alt: "" }
+          }),
+          _vm._v(" "),
+          _c("h5", [
+            _c("a", { attrs: { href: "" } }, [_vm._v("Nolan Davidson")]),
+            _vm._v(" "),
+            _c("a", { staticClass: "reply", attrs: { href: "#" } }, [
+              _c("i", { staticClass: "icofont-reply" }),
+              _vm._v(" Reply")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("time", { attrs: { datetime: "2020-01-01" } }, [
+            _vm._v("01 Jan, 2020")
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "\n                Distinctio nesciunt rerum reprehenderit sed. Iste omnis eius repellendus quia nihil ut accusantium tempore. Nesciunt expedita id dolor exercitationem aspernatur aut quam ut. Voluptatem est accusamus iste at.\n                Non aut et et esse qui sit modi neque. Exercitationem et eos aspernatur. Ea est consequuntur officia beatae ea aut eos soluta. Non qui dolorum voluptatibus et optio veniam. Quam officia sit nostrum dolorem.\n              "
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "comment clearfix", attrs: { id: "comment-4" } },
+        [
+          _c("img", {
+            staticClass: "comment-img  float-left",
+            attrs: { src: "assets/img/comments-6.jpg", alt: "" }
+          }),
+          _vm._v(" "),
+          _c("h5", [
+            _c("a", { attrs: { href: "" } }, [_vm._v("Kay Duggan")]),
+            _vm._v(" "),
+            _c("a", { staticClass: "reply", attrs: { href: "#" } }, [
+              _c("i", { staticClass: "icofont-reply" }),
+              _vm._v(" Reply")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("time", { attrs: { datetime: "2020-01-01" } }, [
+            _vm._v("01 Jan, 2020")
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "\n                Dolorem atque aut. Omnis doloremque blanditiis quia eum porro quis ut velit tempore. Cumque sed quia ut maxime. Est ad aut cum. Ut exercitationem non in fugiat.\n              "
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "reply-form" }, [
+        _c("h4", [_vm._v("Leave a Reply")]),
         _vm._v(" "),
         _c("p", [
           _vm._v(
-            "\n              Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.\n            "
+            "Your email address will not be published. Required fields are marked * "
           )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "blog-comments" }, [
-        _c("h4", { staticClass: "comments-count" }, [_vm._v("8 Comments")]),
+        ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "comment clearfix", attrs: { id: "comment-1" } },
-          [
-            _c("img", {
-              staticClass: "comment-img  float-left",
-              attrs: { src: "assets/img/comments-1.jpg", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("h5", [
-              _c("a", { attrs: { href: "" } }, [_vm._v("Georgia Reader")]),
-              _vm._v(" "),
-              _c("a", { staticClass: "reply", attrs: { href: "#" } }, [
-                _c("i", { staticClass: "icofont-reply" }),
-                _vm._v(" Reply")
-              ])
+        _c("form", { attrs: { action: "" } }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6 form-group" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: { name: "name", type: "text", placeholder: "Your Name*" }
+              })
             ]),
             _vm._v(" "),
-            _c("time", { attrs: { datetime: "2020-01-01" } }, [
-              _vm._v("01 Jan, 2020")
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n                Et rerum totam nisi. Molestiae vel quam dolorum vel voluptatem et et. Est ad aut sapiente quis molestiae est qui cum soluta.\n                Vero aut rerum vel. Rerum quos laboriosam placeat ex qui. Sint qui facilis et.\n              "
-              )
+            _c("div", { staticClass: "col-md-6 form-group" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  name: "email",
+                  type: "text",
+                  placeholder: "Your Email*"
+                }
+              })
             ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "comment clearfix", attrs: { id: "comment-2" } },
-          [
-            _c("img", {
-              staticClass: "comment-img  float-left",
-              attrs: { src: "assets/img/comments-2.jpg", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("h5", [
-              _c("a", { attrs: { href: "" } }, [_vm._v("Aron Alvarado")]),
-              _vm._v(" "),
-              _c("a", { staticClass: "reply", attrs: { href: "#" } }, [
-                _c("i", { staticClass: "icofont-reply" }),
-                _vm._v(" Reply")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("time", { attrs: { datetime: "2020-01-01" } }, [
-              _vm._v("01 Jan, 2020")
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n                Ipsam tempora sequi voluptatem quis sapiente non. Autem itaque eveniet saepe. Officiis illo ut beatae.\n              "
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "comment comment-reply clearfix",
-                attrs: { id: "comment-reply-1" }
-              },
-              [
-                _c("img", {
-                  staticClass: "comment-img  float-left",
-                  attrs: { src: "assets/img/comments-3.jpg", alt: "" }
-                }),
-                _vm._v(" "),
-                _c("h5", [
-                  _c("a", { attrs: { href: "" } }, [_vm._v("Lynda Small")]),
-                  _vm._v(" "),
-                  _c("a", { staticClass: "reply", attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "icofont-reply" }),
-                    _vm._v(" Reply")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("time", { attrs: { datetime: "2020-01-01" } }, [
-                  _vm._v("01 Jan, 2020")
-                ]),
-                _vm._v(" "),
-                _c("p", [
-                  _vm._v(
-                    "\n                  Enim ipsa eum fugiat fuga repellat. Commodi quo quo dicta. Est ullam aspernatur ut vitae quia mollitia id non. Qui ad quas nostrum rerum sed necessitatibus aut est. Eum officiis sed repellat maxime vero nisi natus. Amet nesciunt nesciunt qui illum omnis est et dolor recusandae.\n\n                  Recusandae sit ad aut impedit et. Ipsa labore dolor impedit et natus in porro aut. Magnam qui cum. Illo similique occaecati nihil modi eligendi. Pariatur distinctio labore omnis incidunt et illum. Expedita et dignissimos distinctio laborum minima fugiat.\n\n                  Libero corporis qui. Nam illo odio beatae enim ducimus. Harum reiciendis error dolorum non autem quisquam vero rerum neque.\n                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "comment comment-reply clearfix",
-                    attrs: { id: "comment-reply-2" }
-                  },
-                  [
-                    _c("img", {
-                      staticClass: "comment-img  float-left",
-                      attrs: { src: "assets/img/comments-4.jpg", alt: "" }
-                    }),
-                    _vm._v(" "),
-                    _c("h5", [
-                      _c("a", { attrs: { href: "" } }, [
-                        _vm._v("Sianna Ramsay")
-                      ]),
-                      _vm._v(" "),
-                      _c("a", { staticClass: "reply", attrs: { href: "#" } }, [
-                        _c("i", { staticClass: "icofont-reply" }),
-                        _vm._v(" Reply")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("time", { attrs: { datetime: "2020-01-01" } }, [
-                      _vm._v("01 Jan, 2020")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "\n                    Et dignissimos impedit nulla et quo distinctio ex nemo. Omnis quia dolores cupiditate et. Ut unde qui eligendi sapiente omnis ullam. Placeat porro est commodi est officiis voluptas repellat quisquam possimus. Perferendis id consectetur necessitatibus.\n                  "
-                      )
-                    ])
-                  ]
-                )
-              ]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "comment clearfix", attrs: { id: "comment-3" } },
-          [
-            _c("img", {
-              staticClass: "comment-img  float-left",
-              attrs: { src: "assets/img/comments-5.jpg", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("h5", [
-              _c("a", { attrs: { href: "" } }, [_vm._v("Nolan Davidson")]),
-              _vm._v(" "),
-              _c("a", { staticClass: "reply", attrs: { href: "#" } }, [
-                _c("i", { staticClass: "icofont-reply" }),
-                _vm._v(" Reply")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("time", { attrs: { datetime: "2020-01-01" } }, [
-              _vm._v("01 Jan, 2020")
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n                Distinctio nesciunt rerum reprehenderit sed. Iste omnis eius repellendus quia nihil ut accusantium tempore. Nesciunt expedita id dolor exercitationem aspernatur aut quam ut. Voluptatem est accusamus iste at.\n                Non aut et et esse qui sit modi neque. Exercitationem et eos aspernatur. Ea est consequuntur officia beatae ea aut eos soluta. Non qui dolorum voluptatibus et optio veniam. Quam officia sit nostrum dolorem.\n              "
-              )
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "comment clearfix", attrs: { id: "comment-4" } },
-          [
-            _c("img", {
-              staticClass: "comment-img  float-left",
-              attrs: { src: "assets/img/comments-6.jpg", alt: "" }
-            }),
-            _vm._v(" "),
-            _c("h5", [
-              _c("a", { attrs: { href: "" } }, [_vm._v("Kay Duggan")]),
-              _vm._v(" "),
-              _c("a", { staticClass: "reply", attrs: { href: "#" } }, [
-                _c("i", { staticClass: "icofont-reply" }),
-                _vm._v(" Reply")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("time", { attrs: { datetime: "2020-01-01" } }, [
-              _vm._v("01 Jan, 2020")
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n                Dolorem atque aut. Omnis doloremque blanditiis quia eum porro quis ut velit tempore. Cumque sed quia ut maxime. Est ad aut cum. Ut exercitationem non in fugiat.\n              "
-              )
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "reply-form" }, [
-          _c("h4", [_vm._v("Leave a Reply")]),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "Your email address will not be published. Required fields are marked * "
-            )
           ]),
           _vm._v(" "),
-          _c("form", { attrs: { action: "" } }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-6 form-group" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    name: "name",
-                    type: "text",
-                    placeholder: "Your Name*"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-6 form-group" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    name: "email",
-                    type: "text",
-                    placeholder: "Your Email*"
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col form-group" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    name: "website",
-                    type: "text",
-                    placeholder: "Your Website"
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col form-group" }, [
-                _c("textarea", {
-                  staticClass: "form-control",
-                  attrs: { name: "comment", placeholder: "Your Comment*" }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-              [_vm._v("Post Comment")]
-            )
-          ])
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col form-group" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  name: "website",
+                  type: "text",
+                  placeholder: "Your Website"
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col form-group" }, [
+              _c("textarea", {
+                staticClass: "form-control",
+                attrs: { name: "comment", placeholder: "Your Comment*" }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("Post Comment")]
+          )
         ])
       ])
     ])
@@ -56114,8 +55893,8 @@ Vue.component('footer-component', __webpack_require__(/*! ./components/public/Fo
 Vue.component('master-component', __webpack_require__(/*! ./components/public/PublicMaster.vue */ "./resources/js/components/public/PublicMaster.vue")["default"]);
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
-  routes: _routes__WEBPACK_IMPORTED_MODULE_3__["routes"],
-  mode: 'history'
+  routes: _routes__WEBPACK_IMPORTED_MODULE_3__["routes"] // mode: 'history'
+
 });
 var app = new Vue({
   el: '#app',
@@ -56665,7 +56444,7 @@ var routes = [{
   path: '/',
   component: _components_public_home_PublicHome__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
-  path: '/blog',
+  path: '/blog/:id',
   component: _components_public_single_blog_SingleBlogComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
 } // { path: '/bar', component: Bar }
 ];
@@ -56684,11 +56463,23 @@ __webpack_require__.r(__webpack_exports__);
 // import Axios from "axios"
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    blogs: []
+    blogs: [],
+    blog: [],
+    categories: [],
+    tags: []
   },
   getters: {
     getBlogs: function getBlogs(state) {
       return state.blogs;
+    },
+    getBlog: function getBlog(state) {
+      return state.blog;
+    },
+    getCategories: function getCategories(state) {
+      return state.categories;
+    },
+    getTags: function getTags(state) {
+      return state.tags;
     }
   },
   actions: {
@@ -56697,11 +56488,38 @@ __webpack_require__.r(__webpack_exports__);
         // console.log(res.data.blogs);
         context.commit('getBlogsMutation', res.data.blogs);
       });
+    },
+    getSingleBlog: function getSingleBlog(context, payload) {
+      axios.get('/api/single-blog/' + payload).then(function (res) {
+        // console.log(res.data.blog);
+        context.commit('getBlogMutation', res.data.blog);
+      });
+    },
+    getAllCategories: function getAllCategories(context) {
+      axios.get('/api/all-categories').then(function (res) {
+        // console.log(res.data.categories);
+        context.commit('getCatMutation', res.data.categories);
+      });
+    },
+    getAllTags: function getAllTags(context) {
+      axios.get('/api/all-tags').then(function (res) {
+        // console.log(res.data.tags);
+        context.commit('getTagMutation', res.data.tags);
+      });
     }
   },
   mutations: {
     getBlogsMutation: function getBlogsMutation(state, payload) {
       return state.blogs = payload;
+    },
+    getBlogMutation: function getBlogMutation(state, payload) {
+      return state.blog = payload;
+    },
+    getCatMutation: function getCatMutation(state, payload) {
+      return state.categories = payload;
+    },
+    getTagMutation: function getTagMutation(state, payload) {
+      return state.tags = payload;
     }
   }
 });
