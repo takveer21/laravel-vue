@@ -10,5 +10,9 @@ export const routes = [
         path: '/blog/:id',
         component: SingleBlogComponent
     },
+    {
+        path: '/categories/:id',
+        component: PublicHomeComponent
+    },
     // { path: '/bar', component: Bar }
 ]

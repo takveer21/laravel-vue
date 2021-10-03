@@ -37,7 +37,7 @@
               <div class="entry-meta">
                 <ul>
                   <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">{{singleBlog.author.auth_name}}</a></li>
-                  <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">{{singleBlog.created_at}}</time></a></li>
+                  <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html">{{moment(singleBlog.created_at).format('MMMM Do YYYY, h:mm:ss a')}}</a></li>
                 </ul>
               </div>
 
@@ -208,13 +208,23 @@
         components:{
             SideBarComponent
         },
+        methods:{
+            getsinglepost(){
+                this.$store.dispatch('getSingleBlog',this.$route.params.id)
+            }
+        },
         mounted(){
             console.log('test');
-            this.$store.dispatch('getSingleBlog',this.$route.params.id)
+            this.getsinglepost();
         },
         computed:{
             singleBlog(){
                 return this.$store.getters.getBlog
+            }
+        },
+        watch:{
+            $route(to,from){
+                this.getsinglepost();
             }
         }
     }

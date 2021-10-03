@@ -5,11 +5,15 @@ export default{
         blogs: [],
         blog:[],
         categories:[],
-        tags:[]
+        tags:[],
+        latestblogs:[]
     },
     getters:{
         getBlogs(state){
             return state.blogs
+        },
+        getLatestBlogs(state){
+            return state.latestblogs
         },
         getBlog(state){
             return state.blog
@@ -49,6 +53,27 @@ export default{
                 // console.log(res.data.tags);
                 context.commit('getTagMutation',res.data.tags)
             })
+        },
+        getCategoryBlogs(context,payload){
+            axios.get('/api/category-blog/'+payload)
+                .then((res)=>{
+                    console.log(res.data.blogs);
+                    context.commit('getCatBlogMutation',res.data.blogs)
+                })
+        },
+        getAllLatestBlogs(context){
+            axios.get('/api/all-latest-blogs')
+                .then((res)=>{
+                    console.log(res.data.blogs);
+                    context.commit('getLatestBlogsMutation',res.data.blogs)
+                })
+        },
+        searchBlogs(context,payload){
+            axios.get('/api/search-blog?s='+payload)
+                .then((res)=>{
+                    console.log(res.data.blogs);
+                    context.commit('getSearchBlogMutation',res.data.blogs)
+                })
         }
     },
     mutations:{
@@ -63,6 +88,15 @@ export default{
         },
         getTagMutation(state,payload){
             return state.tags = payload
+        },
+        getCatBlogMutation(state,payload){
+            return state.blogs = payload
+        },
+        getLatestBlogsMutation(state,payload){
+            return state.latestblogs = payload
+        },
+        getSearchBlogMutation(state,payload){
+            return state.blogs = payload
         }
     }
 }

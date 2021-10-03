@@ -3,11 +3,11 @@
         <div class="sidebar">
             <h3 class="sidebar-title">Search</h3>
             <div class="sidebar-item search-form">
-                <form action="">
-                    <input type="text" />
-                    <button type="submit">
+                <form >
+                    <input @keyup="search" type="text" v-model="keyword"/>
+                    <!-- <button type="submit">
                         <i class="icofont-search"></i>
-                    </button>
+                    </button> -->
                 </form>
             </div>
             <!-- End sidebar search formn-->
@@ -15,8 +15,8 @@
             <h3 class="sidebar-title">Categories</h3>
             <div class="sidebar-item categories">
                 <ul>
-                    <li v-for="cat in cats">
-                        <a href="#">{{cat.cat_name}} <span>(25)</span></a>
+                    <li v-for="cat,index in cats">
+                        <router-link :to="`/categories/${cat.id}`">{{cat.cat_name}} <span>({{cat.length}})</span></router-link>
                     </li>
 
                 </ul>
@@ -28,11 +28,9 @@
                 <div class="post-item clearfix" v-for="post in posts">
                     <img :src="`${post.image}`" alt="" />
                     <h4>
-                        <a href="blog-single.html"
-                            >{{post.title}}</a
-                        >
+                        <router-link :to="`/blog/${post.id}`">{{post.title}}</router-link>
                     </h4>
-                    <time datetime="2020-01-01">{{post.created_at}}</time>
+                    {{moment(post.created_at).format('MMMM Do YYYY, h:mm:ss a')}}
                 </div>
 
 
@@ -55,21 +53,31 @@
 <script>
 export default {
     name: "SideBar.vue",
+    data(){
+        return {
+            keyword:""
+        }
+    },
     mounted(){
         this.$store.dispatch('getAllCategories')
-        this.$store.dispatch('getAllBlogs')
+        this.$store.dispatch('getAllLatestBlogs')
         this.$store.dispatch('getAllTags')
     },
     computed:{
-            cats(){
-                return this.$store.getters.getCategories
-            },
-            posts(){
-                return this.$store.getters.getBlogs
-            },
-            tags(){
-                return this.$store.getters.getTags
-            }
+        cats(){
+            return this.$store.getters.getCategories
+        },
+        posts(){
+            return this.$store.getters.getLatestBlogs
+        },
+        tags(){
+            return this.$store.getters.getTags
+        }
+    },
+    methods:{
+        search(){
+            this.$store.dispatch('searchBlogs',this.keyword)
+        }
     }
 };
 </script>

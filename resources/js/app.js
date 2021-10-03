@@ -13,7 +13,8 @@ const store = new Vuex.Store(
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-
+import moment from 'moment'
+Vue.prototype.moment = moment
 
 Vue.component('my-component', require('./components/ExampleComponent.vue').default);
 Vue.component('header-component', require('./components/public/HeaderComponent.vue').default);

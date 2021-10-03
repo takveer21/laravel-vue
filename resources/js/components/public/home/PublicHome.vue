@@ -37,7 +37,7 @@
               <div class="entry-meta">
                 <ul>
                   <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">{{post.author.auth_name}}</a></li>
-                  <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">{{post.created_at}}</time></a></li>
+                  <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html">{{moment(post.created_at).format('MMMM Do YYYY, h:mm:ss a')}}</a></li>
                 </ul>
               </div>
 
@@ -79,10 +79,25 @@
         mounted(){
             console.log('test');
             this.$store.dispatch('getAllBlogs')
+            // this.getcategoryblogs();
         },
         computed:{
             posts(){
                 return this.$store.getters.getBlogs
+            }
+        },
+        methods:{
+            getcategoryblogs(){
+                if(this.$route.params.id!=null){
+                    this.$store.dispatch('getCategoryBlogs',this.$route.params.id)
+                } else {
+                    this.$store.dispatch('getAllBlogs')
+                }
+            },
+        },
+        watch:{
+            $route(to,from){
+                this.getcategoryblogs();
             }
         }
     }
